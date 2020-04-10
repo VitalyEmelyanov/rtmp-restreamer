@@ -1,60 +1,63 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <v-app dark>
+    <v-app-bar app color="primary" dark>
+      <v-icon class="pr-2">mdi-video-box</v-icon>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+      <v-toolbar-title class="font-weight-bold">
+        RTMP Restreamer
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <span class="pr-4 caption" style="max-width: 250px">
+        <v-progress-circular v-if="$store.state.loading && !$store.state.error"
+                             size="12" width="1" class="mb-1 mr-1" indeterminate />
+        <span v-if="$store.state.error" class="error--text">{{$store.state.error}}</span>
+        <span v-else>{{$store.state.log[$store.state.log.length - 1]}}</span>
+      </span>
+
+      <ControlPanel />
+
+      <Menu />
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <StreamDestinations class="pb-0" />
+      <StreamInput />
+      <SystemLog v-if="$store.state.logVisible" />
     </v-content>
+
+    <v-footer app>
+      <v-spacer></v-spacer>
+      <div class="caption">&copy; Vitaly Emelyanov, {{ new Date().getFullYear() }}</div>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import StreamInput from './components/StreamInput';
+import StreamDestinations from './components/StreamDestinations';
+import SystemLog from './components/SystemLog';
+import Menu from './components/Menu';
+import ControlPanel from './components/ControlPanel';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    ControlPanel,
+    StreamInput,
+    Menu,
+    SystemLog,
+    StreamDestinations,
+  },
+
+  created() {
+    this.$store.dispatch('init')
   },
 
   data: () => ({
     //
-  }),
+  })
 };
 </script>

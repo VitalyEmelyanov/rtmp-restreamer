@@ -1,4 +1,8 @@
-# rtmp-restreamer
+# RTMP Restreamer
+
+## Requirements
+
+Node.js, Docker
 
 ## Project setup
 ```
@@ -20,5 +24,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
