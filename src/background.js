@@ -1,5 +1,8 @@
 'use strict';
 
+/* global __static */
+
+import path from 'path'
 import {app, protocol, BrowserWindow} from 'electron';
 import {store} from './store';
 import {
@@ -24,6 +27,7 @@ function createWindow() {
     frame: false,
     resizable: false,
     maximizable: false,
+    icon: path.join(__static, 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
     }
