@@ -34,6 +34,7 @@
                 <v-text-field
                   label="Key"
                   :disabled="$store.state.started"
+                  type="password"
                   v-model="destination.key"
                   @input="$store.commit('updateStreamingDestination', destination)" />
               </v-col>
