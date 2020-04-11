@@ -112,15 +112,16 @@ export const store = new Vuex.Store({
     async connectDocker({dispatch, commit}) {
       dispatch('log', 'Connecting to Docker')
       let dockerUnix = new Docker()
-      let dockerWin = new Docker({host: '127.0.0.1', port: 2376})
+      let dockerWin = new Docker({port: 2375})
       await dockerUnix.version().catch(() => dockerUnix = null);
       await dockerWin.version().catch(() => dockerWin = null);
       const docker = dockerUnix || dockerWin
       if (!docker) {
         dispatch('error', 'Could not connect to Docker!')
+      } else {
+        dispatch('log', 'Connected to Docker')
+        commit('setDocker', docker)
       }
-      dispatch('log', 'Connected to Docker')
-      commit('setDocker', docker)
     },
     async killExistingContainers({dispatch, state}) {
       dispatch('log', 'Kill & remove existing containers')

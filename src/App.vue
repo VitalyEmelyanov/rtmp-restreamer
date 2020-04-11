@@ -54,7 +54,7 @@ export default {
     StreamDestinations,
   },
 
-  created() {
+  mounted() {
     this.$store.dispatch('init')
   },
 
