@@ -6,6 +6,7 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       builderOptions: {
+        productName: 'RTMP Resteamer',
         publish: ['github']
       }
     }
