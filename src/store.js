@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     log: [],
     logVisible: false,
     streamingDestinations: [],
-    rtmpUrl: '',
+    rtmpPort: '',
     loading: false,
     docker: null,
     error: null,
@@ -30,7 +30,7 @@ export const store = new Vuex.Store({
     setLoading: (state, val) => state.loading = val,
     setStarted: (state, val) => state.started = val,
     setError: (state, val) => state.error = val,
-    setRmtpUrl: (state, val) => state.rtmpUrl = val,
+    setRtmpPort: (state, val) => state.rtmpPort = val,
     toggleLog: state => state.logVisible = !state.logVisible,
     addStreamingDestination: state => state.streamingDestinations.push({url: '', key: ''}),
     removeStreamingDestination: (state, val) => state.streamingDestinations = state.streamingDestinations.filter(s => s !== val),
@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
       commit('setLoading', true)
       dispatch('log', 'Stopping')
       await dispatch('killExistingContainers')
-      commit('setRmtpUrl', '')
+      commit('setRtmpPort', null)
       dispatch('log', 'Ready')
       commit('setStarted', false)
       commit('setLoading', false)
@@ -71,9 +71,9 @@ export const store = new Vuex.Store({
     async start({dispatch, commit, state}) {
       commit('setLoading', true)
       dispatch('log', 'Starting')
-      const rmtpPort = await getPort({port: 1935})
+      const rtmpPort = await getPort({port: 1935})
       const httpPort = await getPort({port: 8080})
-      dispatch('log', `Got RMTP port ${rmtpPort}`)
+      dispatch('log', `Got RTMP port ${rtmpPort}`)
       dispatch('log', `Got HTTP port ${httpPort}`)
 
       dispatch('log', 'Creating container')
@@ -90,7 +90,7 @@ export const store = new Vuex.Store({
           Env: [`RTMP_PUSH_URLS=${urls.join(',')}`],
           Tty: true,
           PortBindings: {
-            '1935/tcp': [{HostPort: String(rmtpPort)}],
+            '1935/tcp': [{HostPort: String(rtmpPort)}],
             '8080/tcp': [{HostPort: String(httpPort)}],
           },
         })
@@ -98,9 +98,7 @@ export const store = new Vuex.Store({
         dispatch('log', 'Starting container')
         await container.start()
 
-        const rtmpUrl = `rtmp://127.0.0.1:${rmtpPort}/live`
-
-        commit('setRmtpUrl', rtmpUrl)
+        commit('setRtmpPort', rtmpPort)
       } catch (e) {
         dispatch('error', e)
       }

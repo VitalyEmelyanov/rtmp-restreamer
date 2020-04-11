@@ -1,6 +1,6 @@
 {
   "name": "rtmp-restreamer",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -21,6 +21,7 @@
     "electron-builder": "^22.4.1",
     "electron-updater": "^4.2.5",
     "get-port": "^5.1.1",
+    "ip": "^1.1.5",
     "spectron": "^8.0.0",
     "un": "0.0.0",
     "vue": "^2.6.11",
