@@ -2,8 +2,9 @@
 
 /* global __static */
 
-import path from 'path'
+import path from 'path';
 import {app, protocol, BrowserWindow} from 'electron';
+import {autoUpdater} from 'electron-updater';
 import {store} from './store';
 import {
   createProtocol
@@ -29,7 +30,7 @@ function createWindow() {
     maximizable: false,
     icon: path.join(__static, 'icon.png'),
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true
     }
   });
 
@@ -41,6 +42,7 @@ function createWindow() {
     createProtocol('app');
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
+    autoUpdater.checkForUpdatesAndNotify();
   }
 
   win.on('closed', () => {
@@ -52,9 +54,9 @@ function createWindow() {
 app.on('window-all-closed', () => app.quit());
 
 app.on('quit', async () => {
-  await store.dispatch('connectDocker')
-  await store.dispatch('stop')
-})
+  await store.dispatch('connectDocker');
+  await store.dispatch('stop');
+});
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
