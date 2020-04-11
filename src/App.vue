@@ -30,7 +30,7 @@
     </v-content>
 
     <v-footer app>
-      <div class="caption" @dblclick="$store.commit('toggleLog')">v1.0</div>
+      <div class="caption" @dblclick="$store.commit('toggleLog')">v{{version}}</div>
       <v-spacer></v-spacer>
       <div class="caption">&copy; Vitaly Emelyanov, {{ new Date().getFullYear() }}</div>
     </v-footer>
@@ -56,6 +56,12 @@ export default {
 
   mounted() {
     this.$store.dispatch('init')
+  },
+
+  computed: {
+    version() {
+      return remote.app.getVersion()
+    }
   },
 
   methods: {
