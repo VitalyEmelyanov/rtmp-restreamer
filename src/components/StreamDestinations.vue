@@ -8,7 +8,7 @@
         </div>
         <v-spacer />
         <v-btn
-          :disabled="$store.state.streamingDestinations.length >= 3"
+          :disabled="$store.state.streamingDestinations.length >= 3 || $store.state.started"
           color="primary"
           @click="$store.commit('addStreamingDestination')">
           <v-icon>mdi-plus</v-icon>
@@ -26,12 +26,14 @@
               <v-col>
                 <v-text-field
                   label="URL"
+                  :disabled="$store.state.started"
                   v-model="destination.url"
                   @input="$store.commit('updateStreamingDestination', destination)" />
               </v-col>
               <v-col>
                 <v-text-field
                   label="Key"
+                  :disabled="$store.state.started"
                   v-model="destination.key"
                   @input="$store.commit('updateStreamingDestination', destination)" />
               </v-col>
