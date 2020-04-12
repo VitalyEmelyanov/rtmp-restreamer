@@ -124,7 +124,9 @@ export const store = new Vuex.Store({
         })
 
         const nginxTemplatePath = path.join(__static, '/rtmp/nginx.conf.template')
-        const nginxConfigPath = path.join(remote.app.getAppPath('temp'), '/nginx.conf')
+        const nginxConfigPath = path.join(remote.app.getPath('appData'), '/nginx.conf')
+
+        console.log('nginxConfigPath', nginxConfigPath)
 
         let template = fs.readFileSync(nginxTemplatePath, 'utf8')
 
