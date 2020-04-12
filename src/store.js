@@ -6,6 +6,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Docker from 'dockerode';
 import getPort from 'get-port';
+import {remote} from "electron";
 
 Vue.use(Vuex);
 
@@ -122,8 +123,8 @@ export const store = new Vuex.Store({
           return `${url}/${key}`
         })
 
-        const nginxTemplatePath = path.join(__static, '/rtmp/nginx.conf.template')
-        const nginxConfigPath = path.join(__static, '/rtmp/nginx.conf')
+        const nginxTemplatePath = path.join(remote.app.getAppPath('temp'), '/rtmp/nginx.conf.template')
+        const nginxConfigPath = path.join(remote.app.getAppPath('temp'), '/rtmp/nginx.conf')
 
         let template = fs.readFileSync(nginxTemplatePath, 'utf8')
 
