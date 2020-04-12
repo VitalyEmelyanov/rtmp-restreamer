@@ -68,7 +68,8 @@ export default {
     minimize() {
       remote.getCurrentWindow().minimize()
     },
-    close() {
+    async close() {
+      await this.$store.dispatch('stop').catch(() => {})
       remote.getCurrentWindow().close()
     }
   }
