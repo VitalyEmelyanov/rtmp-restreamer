@@ -30,9 +30,9 @@
     </v-content>
 
     <v-footer app>
-      <div class="caption" @dblclick="$store.commit('toggleLog')">v{{version}}</div>
+      <div class="footer-text" @dblclick="$store.commit('toggleLog')">v{{version}}</div>
       <v-spacer></v-spacer>
-      <div class="caption">&copy; Vitaly Emelyanov, {{ new Date().getFullYear() }}</div>
+      <div class="footer-text">&copy; Vitaly Emelyanov, {{ new Date().getFullYear() }}</div>
     </v-footer>
   </v-app>
 </template>
@@ -86,6 +86,10 @@ export default {
   -webkit-user-select: none
   -webkit-user-drag: none
   cursor: default
+
+.footer-text
+  font-size: 12px
+  color: rgba(255, 255, 255, 0.4)
 
 input
   cursor: text
