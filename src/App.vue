@@ -56,7 +56,7 @@ export default {
 
   mounted() {
     this.$store.dispatch('init')
-    this.$store.dispatch('stats/initStats')
+    this.$store.dispatch('stats/initStats', this.version)
   },
 
   computed: {
