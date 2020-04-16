@@ -1,6 +1,6 @@
 {
   "name": "rtmp-restreamer",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -15,6 +15,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "axios": "^0.19.2",
     "copy-to-clipboard": "^3.3.1",
     "core-js": "^3.6.4",
     "dockerode": "^3.2.0",
@@ -22,6 +23,7 @@
     "electron-updater": "^4.2.5",
     "get-port": "^5.1.1",
     "ip": "^1.1.5",
+    "node-machine-id": "^1.1.12",
     "spectron": "^8.0.0",
     "un": "0.0.0",
     "vue": "^2.6.11",

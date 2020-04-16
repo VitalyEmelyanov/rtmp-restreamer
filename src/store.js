@@ -6,7 +6,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Docker from 'dockerode';
 import getPort from 'get-port';
-import {remote} from "electron";
+import {remote} from 'electron';
+import stats from './stats';
 
 Vue.use(Vuex);
 
@@ -14,6 +15,9 @@ export const IMAGE_ID = 'jasonrivers/nginx-rtmp:latest'
 export const STUNNEL_IMAGE_ID = 'stunnel-rmtp:latest'
 
 export const store = new Vuex.Store({
+  modules: {
+    stats
+  },
   plugins: [
 
   ],
