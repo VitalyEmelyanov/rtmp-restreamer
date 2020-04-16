@@ -22,7 +22,6 @@ export default {
         deviceId,
       }
       await axios.post('https://stats.evitaly.me/api/stats', stats)
-      console.log('stats', stats)
     }
   }
 }
