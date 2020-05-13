@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Check out Git repository
@@ -24,9 +24,6 @@ jobs:
 
       - name: Install deps
         run: npm install
-
-      - name: Install snapcraft
-        run: sudo snap install snapcraft --classic
 
       - name: Release
         env:
