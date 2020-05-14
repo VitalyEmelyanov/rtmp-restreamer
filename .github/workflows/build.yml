@@ -8,12 +8,8 @@ on:
       - v1.*
 
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest]
+  release_mac:
+    runs-on: macos-latest
 
     steps:
       - name: Check out Git repository
@@ -26,6 +22,29 @@ jobs:
 
       - name: Install deps
         run: npm install
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run electron:release
+
+  release_win:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install deps
+        run: npm install
+
+      - name: Install ffmpeg for x32 and x64
+        run: npm install -f @ffmpeg-installer/win32-ia32 @ffmpeg-installer/win32-x64
 
       - name: Release
         env:
